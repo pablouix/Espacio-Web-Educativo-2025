@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguridad y Ciberseguridad Básica</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%);
+        }
+
+        header {
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a i {
+            font-size: 1.1rem;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            background: white;
+            margin-bottom: 2rem;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            color: #1976d2;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 i {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 3px solid #4caf50;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        h2 i {
+            font-size: 1.8rem;
+        }
+
+        /* Hero Section con Carrusel */
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 450px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .hero-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 10;
+            width: 80%;
+        }
+
+        .hero-content h1 {
+            color: white;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: white;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid #1976d2;
+        }
+
+        .intro-text h3 {
+            color: #1976d2;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .intro-text h3 i {
+            font-size: 1.5rem;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .concept-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8f5e9 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .concept-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #2e7d32;
+            font-size: 1.4rem;
+        }
+
+        .concept-card h3 i {
+            font-size: 1.5rem;
+        }
+
+        .concept-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        /* Sección de Podcast */
+        .podcast-container {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .podcast-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .podcast-info {
+            padding: 1rem;
+        }
+
+        .podcast-info h3 {
+            color: #e65100;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .podcast-info h3 i {
+            font-size: 1.8rem;
+        }
+
+        .podcast-info p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .podcast-player {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .podcast-player iframe {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .video-card {
+            background: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .video-card iframe {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+        }
+
+        .video-card h4 {
+            margin-top: 1rem;
+            color: #1976d2;
+        }
+
+        .simulator-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .simulator-card {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .simulator-card:hover {
+            transform: translateX(5px);
+        }
+
+        .simulator-card i {
+            font-size: 2.5rem;
+            color: #1976d2;
+        }
+
+        .simulator-card a {
+            color: #0d47a1;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .quiz-container {
+            margin-top: 2rem;
+        }
+
+        .quiz-question {
+            background: #f5f5f5;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .quiz-question.active {
+            display: block;
+        }
+
+        .quiz-question h3 {
+            color: #2e7d32;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .quiz-question h3 i {
+            font-size: 1.3rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            background: white;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-option i {
+            font-size: 1.2rem;
+        }
+
+        .quiz-option:hover {
+            border-color: #1976d2;
+            background: #e3f2fd;
+        }
+
+        .quiz-option.correct {
+            background: #c8e6c9;
+            border-color: #4caf50;
+        }
+
+        .quiz-option.incorrect {
+            background: #ffcdd2;
+            border-color: #f44336;
+        }
+
+        .quiz-option.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .quiz-feedback.incorrect {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #e3f2fd;
+            border-radius: 10px;
+        }
+
+        .quiz-score {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1976d2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-score i {
+            font-size: 1.5rem;
+        }
+
+        .btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+        }
+
+        .btn:hover {
+            background: #388e3c;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        footer {
+            background: #0d47a1;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #1976d2;
+                flex-direction: column;
+                padding: 1rem;
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .podcast-content {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            .concept-grid,
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="bi bi-shield-lock-fill"></i>
+                Ciberseguridad Básica
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="bi bi-list"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio"><i class="bi bi-house-fill"></i> Inicio</a></li>
+                <li><a href="#conceptos"><i class="bi bi-book-fill"></i> Conceptos</a></li>
+                <li><a href="#podcast"><i class="bi bi-mic-fill"></i> Podcast</a></li>
+                <li><a href="#videos"><i class="bi bi-play-circle-fill"></i> Videos</a></li>
+                <li><a href="#simuladores"><i class="bi bi-laptop-fill"></i> Simuladores</a></li>
+                <li><a href="#ejercicios"><i class="bi bi-trophy-fill"></i> Ejercicios</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio">
+            <!-- Carrusel de Hero -->
+            <div class="hero-section">
+                <div class="hero-slider" id="heroSlider">
+                    <div class="hero-slide">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&h=450&fit=crop" alt="Ciberseguridad">
+                        <div class="hero-content">
+                            <h1><i class="bi bi-shield-check"></i> ¡Aprende a Protegerte en Internet!</h1>
+                            <p>Tu seguridad digital empieza aquí</p>
+                        </div>
+                    </div>
+                    <div class="hero-slide">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&h=450&fit=crop" alt="Seguridad">
+                        <div class="hero-content">
+                            <h1><i class="bi bi-lock-fill"></i> Protege tus Datos Personales</h1>
+                            <p>Aprende las mejores prácticas de seguridad</p>
+                        </div>
+                    </div>
+                    <div class="hero-slide">
+                        <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=1200&h=450&fit=crop" alt="Contraseñas">
+                        <div class="hero-content">
+                            <h1><i class="bi bi-key-fill"></i> Navega con Seguridad</h1>
+                            <p>Conviértete en un experto digital</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-dots" id="sliderDots"></div>
+            </div>
+
+            <div class="intro-text">
+                <h3><i class="bi bi-exclamation-circle-fill"></i> ¿Por qué esto es importante para ti?</h3>
+                <p>¡Hola! Seguro pasas mucho tiempo en internet, ¿verdad? Ya sea viendo videos, chateando con amigos en WhatsApp, jugando online o haciendo tareas. Pero... ¿sabías que mientras navegas puedes estar en riesgo?</p>
+                <p><strong>¡No te asustes!</strong> Aquí aprenderás todo lo necesario para protegerte. Imagina que internet es como tu ciudad: tiene lugares seguros y otros no tanto. La ciberseguridad es como aprender las reglas para moverte de forma segura, evitar peligros y cuidar tu información personal.</p>
+                <p>En esta plataforma descubrirás cómo crear contraseñas súper seguras, identificar mensajes sospechosos, proteger tus redes sociales y mucho más. ¡Todo explicado de forma sencilla y con actividades interactivas! 🎮</p>
+            </div>
+        </section>
+
+        <section id="conceptos">
+            <h2><i class="bi bi-lightbulb-fill"></i> Conceptos que Necesitas Conocer</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">Estos son los conceptos básicos que todo estudiante debe dominar para navegar seguro en internet:</p>
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h3><i class="bi bi-key-fill"></i> Contraseñas Seguras</h3>
+                    <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=400&h=250&fit=crop" alt="Contraseñas" class="concept-image">
+                    <p><strong>¿Tu contraseña es "123456" o tu fecha de nacimiento?</strong> ¡Mal! Los hackers pueden adivinarla en segundos. Una buena contraseña debe tener al menos 12 caracteres mezclando mayúsculas, minúsculas, números y símbolos. Ejemplo: <code>M1P3rr0#2024!</code> es mucho mejor que <code>miperro2024</code>.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3><i class="bi bi-envelope-exclamation-fill"></i> Phishing</h3>
+                    <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=250&fit=crop" alt="Phishing" class="concept-image">
+                    <p><strong>¡Cuidado con los mensajes falsos!</strong> El phishing es cuando alguien te manda un email o mensaje haciéndose pasar por tu banco, Netflix o cualquier servicio para robarte datos. <strong>Regla de oro:</strong> Nunca hagas clic en links sospechosos ni compartas tu contraseña por mensaje.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3><i class="bi bi-bug-fill"></i> Malware</h3>
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=250&fit=crop" alt="Malware" class="concept-image">
+                    <p><strong>Software malicioso que puede arruinar tu día.</strong> El malware incluye virus, troyanos y spyware que pueden robar tus datos, espiar tu cámara o bloquear tu computadora. <strong>Protégete:</strong> No descargues programas de sitios desconocidos y mantén tu antivirus actualizado.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3><i class="bi bi-virus"></i> Virus Informáticos</h3>
+                    <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=250&fit=crop" alt="Virus" class="concept-image">
+                    <p><strong>Como un virus real, pero para tu compu.</strong> Los virus se copian solos e infectan archivos. Pueden llegar por USB, emails o descargas. <strong>Síntoma común:</strong> Tu computadora va lenta o se comporta raro. ¡Un buen antivirus es tu mejor amigo!</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3><i class="bi bi-shield-fill-check"></i> Firewall</h3>
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=250&fit=crop" alt="Firewall" class="concept-image">
+                    <p><strong>Tu guardaespaldas digital.</strong> El firewall es como un portero que decide quién puede entrar o salir de tu red. Bloquea intentos de acceso no autorizados. <strong>Dato importante:</strong> Windows y Mac ya traen uno incorporado. ¡Asegúrate de tenerlo activado!</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3><i class="bi bi-people-fill"></i> Privacidad en Redes Sociales</h3>
+                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=250&fit=crop" alt="Redes Sociales" class="concept-image">
+                    <p><strong>Piensa antes de publicar.</strong> ¿Subes tu ubicación en tiempo real? ¿Aceptas solicitudes de desconocidos? Mal movimiento. <strong>Consejo pro:</strong> Configura tus perfiles como privados, no compartas información personal sensible y piensa: "¿Querría que mi abuela viera esto?"</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="podcast">
+            <h2><i class="bi bi-mic-fill"></i> Nuestro Podcast Educativo</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">Escucha nuestro podcast donde explicamos de forma entretenida los conceptos más importantes de ciberseguridad.</p>
+            
+            <div class="podcast-container">
+                <div class="podcast-content">
+                    <div class="podcast-info">
+                        <h3>Seguridad Digital para Jóvenes</h3>
+
+                        <p><strong>Temas tratados:</strong></p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>¿Qué es la ciberseguridad y por qué te debe importar?</li>
+                            <li>Los riesgos más comunes en internet</li>
+                            <li>Consejos prácticos para protegerte</li>
+                            <li>Historias reales de ataques cibernéticos</li>
+                        </ul>
+                        <p style="margin-top: 1rem; font-style: italic; color: #666;">
+                            <i class="bi bi-info-circle"></i> Escucha atentamente y toma notas de los puntos más importantes.
+                        </p>
+                    </div>
+                    <div class="podcast-player">
+                        <h4 style="color: #e65100; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="bi bi-headphones"></i> Reproductor de Podcast
+                        </h4>
+                   
+                        <!-- Ejemplo temporal - REEMPLAZAR CON TU PODCAST -->
+                        <iframe width="100%" height="200" 
+                                src="https://www.youtube.com/embed/2C_tlBPv-ps?si=WXFHw-dU7V3AvFGK" 
+                                title="Podcast de Ciberseguridad" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                        
+                   
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="videos">
+            <h2><i class="bi bi-camera-video-fill"></i> Videos para Aprender Más</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">Complementa tu aprendizaje con estos videos explicativos:</p>
+            <div class="video-grid">
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/3G8yJaudGC0?si=_MIwDmrJuHyuJe14" allowfullscreen></iframe>
+                    <h4>Conceptos básicos de Ciberseguridad</h4>
+                    <p>Una introducción super clara a los principales conceptos que debes conocer.</p>
+                </div>
+
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/1ZLNCP7T-8g?si=cEVzdzEYSKgqWQdd" allowfullscreen></iframe>
+                    <h4>Cómo crear contraseñas seguras</h4>
+                    <p>Aprende trucos y técnicas para crear contraseñas que nadie pueda adivinar.</p>
+                </div>
+
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/ClOrYlJgTzQ?si=PIBFRoA5wFlDkMn0" allowfullscreen></iframe>
+                    <h4>Qué es el Phishing y cómo evitarlo</h4>
+                    <p>Ejemplos reales de intentos de phishing y cómo identificarlos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="simuladores">
+            <h2><i class="bi bi-controller"></i> Practica con Simuladores</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">¡Pon en práctica lo aprendido! Estos simuladores te ayudarán a identificar amenazas:</p>
+            <div class="simulator-grid">
+                <div class="simulator-card">
+                    <i class="bi bi-envelope-paper-fill"></i>
+                    <div>
+                        <h3>PhishingQuiz - Google Jigsaw</h3>
+                        <p>¿Puedes identificar cuál email es real y cuál es phishing? ¡Ponte a prueba con este quiz de Google!</p>
+                        <a href="https://phishingquiz.withgoogle.com/" target="_blank">Jugar ahora</a>
+                    </div>
+                </div>
+
+                <div class="simulator-card">
+                    <i class="bi bi-lock-fill"></i>
+                    <div>
+                        <h3>Test de Fortaleza de Contraseñas</h3>
+                        <p>Descubre cuánto tardaría un hacker en descifrar tus contraseñas. ¡Sorpréndete con los resultados!</p>
+                        <a href="https://www.security.org/how-secure-is-my-password/" target="_blank">Probar ahora </a>
+                    </div>
+                </div>
+
+                <div class="simulator-card">
+                    <i class="bi bi-mortarboard-fill"></i>
+                    <div>
+                        <h3>Interland - Aventura Digital de Google</h3>
+                        <p>¡Un juego súper divertido donde aprenderás sobre seguridad en internet jugando! Perfecto para tu edad.</p>
+                        <a href="https://beinternetawesome.withgoogle.com/es-419_all/interland" target="_blank">Comenzar aventura </a>
+                    </div>
+                </div>
+
+                <div class="simulator-card">
+                    <i class="bi bi-journal-code"></i>
+                    <div>
+                        <h3>Cybersecurity Lab - ESET</h3>
+                        <p>Laboratorio virtual con escenarios prácticos. ¡Conviértete en un detective digital!</p>
+                        <a href="https://www.eset.com/us/cybertraining/" target="_blank">Explorar laboratorio</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ejercicios">
+            <h2><i class="bi bi-pencil-square"></i> ¡Demuestra lo que Aprendiste!</h2>
+            <p style="font-size: 1.1rem;">Responde este quiz para evaluar tus conocimientos. ¡No te preocupes si te equivocas, es parte del aprendizaje!</p>
+            
+            <div class="quiz-container" id="quizContainer"></div>
+            
+            <div class="quiz-controls">
+                <div class="quiz-score">
+                    <i class="bi bi-star-fill"></i>
+                    Puntaje: <span id="score">0</span> / <span id="total">0</span>
+                </div>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>
+                    Siguiente <i class="bi bi-arrow-right-circle-fill"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><i class="bi bi-shield-lock-fill"></i> Plataforma Educativa de Ciberseguridad</p>
+        <p>Recursos educativos para estudiantes de secundaria - 2024</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            <i class="bi bi-info-circle"></i> Recuerda: La seguridad digital es responsabilidad de todos
+        </p>
+    </footer>
+
+    <script>
+        // Carrusel Hero
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const totalSlides = slides.length;
+        const dotsContainer = document.getElementById('sliderDots');
+
+        // Crear dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateSlider() {
+            const slider = document.getElementById('heroSlider');
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Auto-play carrusel
+        setInterval(nextSlide, 5000);
+
+        // Quiz Data
+        const quizData = [
+            {
+                question: "¿Cuál de estas contraseñas considerarías MÁS segura?",
+                options: [
+                    "123456789",
+                    "tuNombre2024",
+                    "P@ssw0rd!2024#Xk9Qz",
+                    "contraseña"
+                ],
+                correct: 2,
+                feedback: {
+                    correct: "¡Exacto! Esa contraseña tiene más de 12 caracteres y mezcla mayúsculas, minúsculas, números y símbolos especiales. ¡Muy difícil de hackear!",
+                    incorrect: "¡Ups! Recuerda: una buena contraseña debe tener al menos 12 caracteres mezclando MAYÚSCULAS, minúsculas, numb3r0s y $ímbolo$."
+                }
+            },
+            {
+                question: "Tu amigo te envía un mensaje diciendo 'Mira este video tuyo' con un link extraño. ¿Qué haces?",
+                options: [
+                    "Hago clic inmediatamente porque es mi amigo",
+                    "Le pregunto primero si realmente me lo envió él",
+                    "Ignoro el mensaje completamente",
+                    "Comparto el link con otros amigos"
+                ],
+                correct: 1,
+                feedback: {
+                    correct: "¡Bien pensado! A veces hackean cuentas de amigos para mandar links maliciosos. Siempre verifica primero, mejor prevenir que lamentar.",
+                    incorrect: "¡Cuidado! Aunque sea tu amigo, su cuenta pudo ser hackeada. SIEMPRE pregunta antes de hacer clic en links sospechosos."
+                }
+            },
+            {
+                question: "¿Qué hace un firewall en tu computadora?",
+                options: [
+                    "Elimina virus automáticamente",
+                    "Hace que tu internet vaya más rápido",
+                    "Actúa como barrera bloqueando accesos no autorizados",
+                    "Crea contraseñas seguras"
+                ],
+                correct: 2,
+                feedback: {
+                    correct: "¡Correcto! El firewall es como un guardia de seguridad que decide quién puede entrar o salir de tu red. ¡Tu escudo digital!",
+                    incorrect: "Nop. El firewall es como un portero: controla el tráfico de red y bloquea intentos sospechosos de acceso. ¡Es tu primera línea de defensa!"
+                }
+            },
+            {
+                question: "Recibes un email de 'Netflix' diciendo que tu cuenta será cancelada si no actualizas tu método de pago haciendo clic en un enlace. ¿Qué haces?",
+                options: [
+                    "Hago clic en el enlace inmediatamente",
+                    "Voy directamente a la página oficial de Netflix escribiendo la URL yo mismo",
+                    "Respondo el email con mis datos bancarios",
+                    "Reenvío el email a mis amigos para advertirles"
+                ],
+                correct: 1,
+                feedback: {
+                    correct: "¡Excelente decisión! Eso es un clásico intento de phishing. NUNCA hagas clic en esos links, ve directo a la página oficial escribiendo tú la dirección.",
+                    incorrect: "¡Alerta roja! Eso es phishing. Las empresas reales NUNCA piden datos sensibles por email. Ve siempre a la página oficial escribiendo tú mismo la URL."
+                }
+            },
+            {
+                question: "¿Qué información NO deberías publicar en tus redes sociales?",
+                options: [
+                    "Una foto de tu mascota",
+                    "Tu ubicación en tiempo real diciendo 'no hay nadie en casa'",
+                    "Una foto de un paisaje bonito",
+                    "Un meme gracioso"
+                ],
+                correct: 1,
+                feedback: {
+                    correct: "¡Muy inteligente! Compartir tu ubicación y decir que no hay nadie en casa es básicamente invitar a los ladrones. ¡Piensa antes de publicar!",
+                    incorrect: "¡Error! Publicar tu ubicación en tiempo real, especialmente diciendo que estás solo/a, es MUY peligroso. Cualquiera puede usar esa info en tu contra."
+                }
+            },
+            {
+                question: "Tu computadora va muy lenta y aparecen ventanas raras. Podría ser:",
+                options: [
+                    "Que necesitas más RAM",
+                    "Un virus o malware infectando tu sistema",
+                    "Que tu internet está lento",
+                    "Que necesitas actualizar Windows"
+                ],
+                correct: 1,
+                feedback: {
+                    correct: "¡Bingo! Esos son síntomas clásicos de infección por malware. Escanea tu compu con un antivirus actualizado cuanto antes.",
+                    incorrect: "Mmm... esos síntomas gritan '¡MALWARE!'. Ventanas raras + lentitud = probable infección. ¡Escanea tu PC con un antivirus ahora!"
+                }
+            },
+            {
+                question: "¿Con qué frecuencia deberías actualizar tu sistema operativo y programas?",
+                options: [
+                    "Una vez al año está bien",
+                    "Nunca, las actualizaciones son molestas",
+                    "Cuando me acuerde",
+                    "Tan pronto como estén disponibles"
+                ],
+                correct: 3,
+                feedback: {
+                    correct: "¡Perfecto! Las actualizaciones traen parches de seguridad que cierran vulnerabilidades. Instalarlas rápido = mantenerte protegido.",
+                    incorrect: "¡Grave error! Las actualizaciones incluyen parches de seguridad súper importantes. Esperar mucho = dejar puertas abiertas para hackers."
+                }
+            },
+            {
+                question: "¿Es seguro usar la misma contraseña para todas tus cuentas?",
+                options: [
+                    "Sí, así no se me olvida",
+                    "Sí, si la contraseña es muy fuerte",
+                    "No, si hackean una cuenta hackean todas",
+                    "Solo si agrego un número al final de cada una"
+                ],
+                correct: 2,
+                feedback: {
+                    correct: "¡Correcto al 100%! Si usas la misma contraseña para todo y hackean una cuenta, ¡hackean TODAS! Usa contraseñas diferentes o un gestor de contraseñas.",
+                    incorrect: "¡Nope! Usar la misma contraseña para todo es como tener una llave maestra: si la pierdes, pierdes TODO. Cada cuenta necesita su propia contraseña."
+                }
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function initQuiz() {
+            document.getElementById('total').textContent = quizData.length;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const container = document.getElementById('quizContainer');
+            const data = quizData[currentQuestion];
+            
+            container.innerHTML = `
+                <div class="quiz-question active">
+                    <h3><i class="bi bi-question-circle-fill"></i> Pregunta ${currentQuestion + 1} de ${quizData.length}</h3>
+                    <p style="font-size: 1.2rem; margin: 1rem 0; font-weight: 500;">${data.question}</p>
+                    <div class="quiz-options" id="options">
+                        ${data.options.map((option, index) => `
+                            <div class="quiz-option" onclick="selectAnswer(${index})">
+                                <i class="bi bi-circle"></i> ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="quiz-feedback" id="feedback"></div>
+                </div>
+            `;
+            
+            answered = false;
+            document.getElementById('nextBtn').disabled = true;
+        }
+
+        function selectAnswer(selected) {
+            if (answered) return;
+            
+            answered = true;
+            const data = quizData[currentQuestion];
+            const options = document.querySelectorAll('.quiz-option');
+            const feedback = document.getElementById('feedback');
+            
+            options.forEach((option, index) => {
+                option.classList.add('disabled');
+                if (index === data.correct) {
+                    option.classList.add('correct');
+                    option.querySelector('i').className = 'bi bi-check-circle-fill';
+                }
+                if (index === selected && selected !== data.correct) {
+                    option.classList.add('incorrect');
+                    option.querySelector('i').className = 'bi bi-x-circle-fill';
+                }
+            });
+            
+            if (selected === data.correct) {
+                score++;
+                feedback.className = 'quiz-feedback show correct';
+                feedback.innerHTML = `<i class="bi bi-check-circle-fill"></i> ${data.feedback.correct}`;
+            } else {
+                feedback.className = 'quiz-feedback show incorrect';
+                feedback.innerHTML = `<i class="bi bi-x-circle-fill"></i> ${data.feedback.incorrect}`;
+            }
+            
+            document.getElementById('score').textContent = score;
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const container = document.getElementById('quizContainer');
+            const percentage = Math.round((score / quizData.length) * 100);
+            let message = '';
+            let icon = '';
+            let color = '';
+            
+            if (percentage >= 80) {
+                message = '¡WOW! Eres un crack de la ciberseguridad. Definitivamente sabes cómo protegerte en internet. ¡Sigue así!';
+                icon = 'bi-trophy-fill';
+                color = '#ffd700';
+            } else if (percentage >= 60) {
+                message = '¡Nada mal! Tienes una buena base, pero hay algunos conceptos que deberías repasar. ¡Revisa el material y vuelve a intentarlo!';
+                icon = 'bi-star-fill';
+                color = '#1976d2';
+            } else {
+                message = 'Parece que necesitas estudiar un poco más. No te desanimes, ¡todos empezamos desde cero! Revisa los conceptos y practica con los simuladores.';
+                icon = 'bi-book-fill';
+                color = '#ff9800';
+            }
+            
+            container.innerHTML = `
+                <div class="quiz-question active" style="text-align: center; padding: 3rem;">
+                    <i class="bi ${icon}" style="font-size: 4rem; color: ${color};"></i>
+                    <h3 style="font-size: 2rem; margin: 1.5rem 0;">¡Quiz Completado!</h3>
+                    <p style="font-size: 3.5rem; font-weight: bold; color: #4caf50; margin: 1rem 0;">
+                        ${score} / ${quizData.length}
+                    </p>
+                    <p style="font-size: 1.8rem; color: #1976d2; margin: 1rem 0; font-weight: 600;">
+                        ${percentage}% de aciertos
+                    </p>
+                    <p style="font-size: 1.2rem; margin: 2rem auto; max-width: 600px; line-height: 1.8;">
+                        ${message}
+                    </p>
+                    <button class="btn" onclick="restartQuiz()" style="margin: 1rem auto; font-size: 1.1rem; padding: 1rem 2.5rem;">
+                        <i class="bi bi-arrow-clockwise"></i> Intentar de nuevo
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('nextBtn').style.display = 'none';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('score').textContent = '0';
+            document.getElementById('nextBtn').style.display = 'flex';
+            document.getElementById('nextBtn').disabled = true;
+            loadQuestion();
+        }
+
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Cerrar menú al hacer clic en un enlace (móvil)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Scroll suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Inicializar quiz al cargar la página
+        window.addEventListener('load', initQuiz);
+    </script>
+</body>
+</html>
